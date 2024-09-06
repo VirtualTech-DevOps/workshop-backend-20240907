@@ -1,0 +1,52 @@
+{
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "git.branchPrefix": "feature/",
+    "python.defaultInterpreterPath": "~/.cache/pypoetry/virtualenvs/workshop-backend-template-cHfZcIIE-py3.11/bin/python",
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.sortJSONType": "explicit",
+        "source.organizeImports": "explicit"
+    },
+    "editor.rulers": [
+        80,
+        100,
+        120
+    ],
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.pytest_cache": true
+    },
+    "python.analysis.fixAll": [
+        "source.unusedImports"
+    ],
+    "sortJSON.contextMenu": {
+        "sortJSON": false,
+        "sortJSONAlphaNum": false,
+        "sortJSONAlphaNumReverse": false,
+        "sortJSONKeyLength": false,
+        "sortJSONKeyLengthReverse": false,
+        "sortJSONReverse": false,
+        "sortJSONType": true,
+        "sortJSONTypeReverse": false,
+        "sortJSONValues": false,
+        "sortJSONValuesReverse": false
+    },
+    "editor.formatOnSave": true,
+    "git.branchRandomName.enable": true,
+    "git.branchProtection": [
+        "main"
+    ],
+    "python.analysis.autoImportCompletions": true,
+    "workbench.panel.defaultLocation": "right",
+    "markdown.extension.toc.omittedFromToc": {
+        "README.md": [
+            "## 目次",
+        ],
+    },
+    "python.testing.pytestArgs": [],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "markdown.extension.toc.levels": "2..6"
+}

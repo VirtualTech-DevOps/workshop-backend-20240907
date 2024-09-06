@@ -1,0 +1,6 @@
+instance_type        = "small"
+instance_name_prefix = "ws230809"
+instances            = 7
+
+key_name     = "w230809"
+admin_pubkey = "Paste the Base64-encoded SSH public key here"

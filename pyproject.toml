@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "workshop-backend-template"
+version = "0.1.0"
+description = ""
+authors = ["skip"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytest = "^7.4.0"
+fastapi = {extras = ["all"], version = "^0.100.0"}
+sqlalchemy = "^2.0.19"
+psycopg2 = "^2.9.6"
+isort = "^5.12.0"
+alembic = "^1.11.1"
+python-dotenv = "^1.0.0"
+sqlalchemy-utils = "^0.41.1"
+pytest-cov = "^4.1.0"
+black = "^23.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+include = '\.pyi?$'

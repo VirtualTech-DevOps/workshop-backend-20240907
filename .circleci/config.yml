@@ -1,0 +1,63 @@
+version: 2.1
+
+workflows:
+  main-workflow:
+    jobs:
+      - container-image-publish
+      - test:
+          requires:
+            - container-image-publish
+      - format-check:
+          requires:
+            - container-image-publish
+
+jobs:
+  container-image-publish:
+    machine:
+      image: ubuntu-2004:2023.07.1
+    steps:
+      - checkout
+      - run: docker login ghcr.io -u $CR_USERNAME -p $CR_PAT
+      - run: docker build -t ghcr.io/virtualtech-devops/workshop-backend-template/api:$CIRCLE_SHA1 .devcontainer
+      - run: docker push ghcr.io/virtualtech-devops/workshop-backend-template/api:$CIRCLE_SHA1
+
+  test:
+    docker:
+      - image: ghcr.io/virtualtech-devops/workshop-backend-template/api:$CIRCLE_SHA1
+        auth:
+          username: $CR_USERNAME
+          password: $CR_PAT
+        environment:
+          DB_DRIVER: postgresql
+          DB_USER: circleci
+          DB_PASSWORD: postgres
+          DB_HOST: localhost
+          DB_NAME: circleci
+
+      - image: cimg/postgres:15.3
+        environment:
+          POSTGRES_USER: circleci
+          POSTGRES_PASSWORD: postgres
+    steps:
+      - checkout
+      - run: sudo apt-get update
+      - run: sudo apt-get install postgresql-client
+      - run: make install
+      - run: make ci-test
+  
+  format-check:
+    docker:
+      - image: ghcr.io/virtualtech-devops/workshop-backend-template/api:$CIRCLE_SHA1
+        auth:
+          username: $CR_USERNAME
+          password: $CR_PAT
+        environment:
+          DB_DRIVER: postgresql
+          DB_USER: circleci
+          DB_PASSWORD: postgres
+          DB_HOST: localhost
+          DB_NAME: circleci
+    steps:
+      - checkout
+      - run: make install
+      - run: make format-check

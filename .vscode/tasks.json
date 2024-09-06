@@ -1,0 +1,57 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Git: Set git config user.name",
+            "type": "shell",
+            "command": "git config --local user.name ${input:USER_NAME}",
+            "group": "none",
+            "presentation": {
+                "reveal": "silent",
+                "revealProblems": "onProblem",
+                "panel": "shared",
+                "close": true,
+                "showReuseMessage": false,
+                "focus": true,
+            },
+            "problemMatcher": [],
+        },
+        {
+            "label": "Git: Set git config user.email",
+            "type": "shell",
+            "command": "git config --local user.email ${input:MAIL_ADDRESS}",
+            "group": "none",
+            "presentation": {
+                "reveal": "silent",
+                "revealProblems": "onProblem",
+                "panel": "shared",
+                "close": true,
+                "showReuseMessage": false,
+                "focus": true,
+            },
+            "problemMatcher": [],
+        },
+        {
+            "label": "Git: Set git config user.name and user.email",
+            "dependsOn": [
+                "Git: Set git config user.name",
+                "Git: Set git config user.email"
+            ],
+            "problemMatcher": [],
+        },
+    ],
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "USER_NAME",
+            "description": "Enter your name",
+        },
+        {
+            "type": "promptString",
+            "id": "MAIL_ADDRESS",
+            "description": "Enter your email address",
+        },
+    ]
+}

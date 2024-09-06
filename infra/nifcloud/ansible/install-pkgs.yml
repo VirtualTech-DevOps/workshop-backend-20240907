@@ -1,0 +1,48 @@
+---
+- name: Install packages
+  hosts: all
+  remote_user: root
+
+  vars:
+    deb_architecture: {
+      "x86_64": "amd64",
+      "i386": "i386"
+    }
+
+  tasks:
+    - name: Add GPG key
+      get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /etc/apt/keyrings/docker.asc
+        mode: 0644
+        force: true
+
+    - name: Use the following command to set up the repository
+      apt_repository:
+        repo: deb [arch={{ deb_architecture[ansible_architecture] }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/{{ ansible_system | lower }}/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
+        state: present
+
+    - name: Add GPG key
+      get_url:
+        url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+        dest: /etc/apt/keyrings/github-cli.gpg
+        mode: 0644
+        force: true
+
+    - name: Use the following command to set up the repository
+      apt_repository:
+        repo: deb [arch={{ deb_architecture[ansible_architecture] }} signed-by=/etc/apt/keyrings/github-cli.gpg] https://cli.github.com/packages stable main
+        state: present
+
+    - name: Install Docker Engine, containerd, Docker Compose, GitHub CLI and Git
+      apt:
+        pkg:
+          - "docker-ce"
+          - "docker-ce-cli"
+          - "containerd.io"
+          - "docker-buildx-plugin"
+          - "docker-compose-plugin"
+          - "gh"
+          - "git"
+        update_cache: yes
+        state: present
